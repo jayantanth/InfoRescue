@@ -1,0 +1,39 @@
+-First we are going to set corpus and qrels files for various languages.
+
+-Then we are going to write code to extract various features for various schemes that we are planning to apply. 
+
+Various schemes are:
+-Probabilistic Longest Common Sub-sequence (PLCS):As one team applied longest common sub-sequence on same task and got some good results in RISOT 2012. We are going to modify this scheme to make it less prone to low recall. We are going to make a character based  language model for the OCRed text which will contain the probability of mis-classification of a character into any other character. As this is suggested in this and this paper that OCR error mainly occur for certain characters and very oftenly for them. Now first we are going to find LCS and then we are going to increase the size of this LCS by adding more letters at the starting or ending ,if possible, according to the language model i.e. if the letters we are adding (which will be different for the two words in consideration else it wouldn't be LCS) have probability of mis-classification greater than a certain threshold. We are going to do again & again for all the words and till the LCS length can increase given all the current increment are below the threshold. Then we are going to do the same process as explained in the paper above but we are also going to assign a weight to all these pseudo-LCSs according to the probability present in the language model. In this way we are going to cover many cases (Only those which are missed due to error in OCR because of our character language model) which can be missed by simple LCS. 
+
+-Probabilistic Levenshtein Distance: We are going to calculate the PLD for each of the query word and vocabulary term. We are going to make it probabilistic using the same language model explained above. PLD and PLCS seems to do the same thing but they are bit different. PLCS is going to consider the common sequence. It may be possible that the first try to increment the LCS doesnot satisfy the threshold condition, so we are not going to increment it any further. While PLD always going to compare the complete words not a sequence. We can also use another approach based on the suffix tree as mentioned here. I am not very sure about this. We have to select empirically between these. 
+
+-Stemming: In this we are going to do IR on more crudely stemmed words. The need of this inspite of the presence ov above two schemes is explained in the voting part.
+
+-Content-based Probabilistic Correction Model (CPCM) : As explained here we can use a language model on the words,  but instead of words I prefer n-chargram. The difference between PLCS and this would be CPCM is actually using language model based on the n-char gram instead of letters/characters. Why this is beneficial is explained later in the voting part.
+
+-To build language model and calculating various statistics(letters occurrence frequencies) out of data we could use Indri (Dump Index), CMUSLM Toolkit.
+
+-Voting Part: Then we are going to merge results of all these schemes to give final result on the query. The merging part will be weighted. As PLCS and PLD can induce there own error of co-relating two totally different things, we are going to give more weight to Stemming and CPCM (That's why they are used here). Initially we are going to use he Bayesian apprach for merging and select the top results according the probability (The benefit is that we can arrange al the results arranged in a ranked order easily). As Bayesian is more classic approach, it will give us a benchmark for this project. Then we can use any other learning algorithm to for voting. If results get improved, then we can find some more co-relation between the different schemes which aren't visible under direct näive Bayes approach.
+
+-We plan to build the final voting system in an general(abstract) manner so that more schemes could be added to it, if developed further by anyone in the open source community.
+
+-We are going to use python and various python libraries in achieving this. We also plan to use any data representation library(may be D3.js) to visualize the data and response of various schemes so that we can induce various inferences out of it. 
+
+
+
+
+
+
+
+Phases/milestones with dates:
+Making benchmark data(degradation of data to make it erroneous like OCRed data) and qrels for various languages: 28 May - 10 June
+Implementation of the five schemes (PLCS, PLD, Suffix Tree, Stemming, CPCM) :11 June - 9 July
+PLCS : 11 June - 18 June
+PLD: 19 June - 23 June
+Stemming : 23 June- 26 June (Only for those languages for which stemmer is already available)
+CPCM: 26 June - 30 June
+Suffix Tree: 1 July - 7 July
+Slack Time: 8 July - 9 July
+Voting and complete IR system: 10 July - 25 July
+Tweaking the system: 26 July - 5 September
+Data Representation ,Final Documentation, Documenting API, Testing Code etc. : 6 Sep - 15 Sep
