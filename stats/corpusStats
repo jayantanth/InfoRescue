@@ -1,0 +1,13 @@
+Total Years : 3
+
+[Initial]
+	Total Files : 63158 (original)       { (ls -R original-text/ | wc -l) - (find ./original-text/ -type d | wc -l) }
+				: 63144 (ocred)			 { (ls -R ocred-text/ | wc -l) - (find ./ocred-text/ -type d | wc -l) }
+
+	Total Directories: 161
+
+[After Deleting Uncommon Files]
+	Total Files : 63144 (original)
+				: 63144 (ocred)
+
+	Total Directories: 161
