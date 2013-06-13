@@ -1,4 +1,8 @@
+#Temporary Files#
+mod*
+
 #Corpus#
+###################
 data/
 
 # Compiled source #
@@ -9,6 +13,7 @@ data/
 *.exe
 *.o
 *.so
+*.pyc
 
 # Packages #
 ############
