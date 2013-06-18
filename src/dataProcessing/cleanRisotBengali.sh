@@ -20,7 +20,12 @@ do
 				for j in *
 				do
 					echo $j
-					head -n -2 $j | tail -n +4 > ../../../../RISOT-DATA_cleaned/$z/$x/$i/$j
+					head -n -2 $j | tail -n +4 > ../../../../temp
+					sed 's/[\[`~_.()*&^%$#@!{};:<>,.+=|\?"\/1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ।-]//g' ../../../../temp > ../../../../temp1
+					sed "s/[']//g" ../../../../temp1 > ../../../../temp2
+					sed 's:\]::g' ../../../../temp2 > ../../../../RISOT-DATA_cleaned/$z/$x/$i/$j
+					rm ../../../../temp ../../../../temp1 ../../../../temp2
+
 				done
 				cd ..
 			done
