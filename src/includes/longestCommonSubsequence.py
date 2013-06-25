@@ -2,6 +2,12 @@
 
 import copy
 
+def printTable(table, n, m):
+    for i in range(n+1):
+        for j in range(m+1):
+            print table[i,j],
+        print
+
 def lcs(x, y):
     n = len(x)
     m = len(y)
@@ -16,24 +22,33 @@ def lcs(x, y):
             else:
                 table[i, j] = max(table[i-1, j], table[i, j-1])
 
-    lcs = ''
-    def recon(i, j, lcs):
+    # printTable(table, n, m)
+    lcss = [[]]
+    def recon(i, j, index):
         if i == 0 or j == 0:
-            return lcs
+            return
         elif x[i-1] == y[j-1]:
-            if table[i-1, j] == table[i, j-1]:
-                return recon(i-1, j-1, x[i-1] + lcs)
-            elif table[i-1, j] > table[i, j-1]:
-                return recon(i-1, j-1, x[i-1] + lcs) + ',' + recon(i-1, j, copy.copy(lcs))
-            else:
-                return recon(i-1, j-1, x[i-1] + lcs) + ',' + recon(i, j-1, copy.copy(lcs))
+            if table[i-1, j] > table[i-1, j-1]:
+                lcss.append(copy.deepcopy(lcss[index]))
+                recon(i-1, j, len(lcss) - 1)
+            if table[i, j-1] > table[i-1, j-1]:
+                lcss.append(copy.deepcopy(lcss[index]))
+                recon(i, j-1, len(lcss) - 1)
+            # lcss[index].insert(0, (x[i-1],i-1, j-1))
+            lcss[index].insert(0, (i-1, j-1))
+            recon(i-1, j-1, index)
         elif table[i-1, j] == table[i, j-1]:
-            return recon(i-1, j, lcs) + ',' + recon(i, j-1, copy.copy(lcs))
+            lcss.append(copy.deepcopy(lcss[index]))
+            newIndex = len(lcss) - 1
+            recon(i-1, j, index)
+            recon(i, j-1, newIndex)
         elif table[i-1, j] > table[i, j-1]:
-            return recon(i-1, j, lcs)
+            recon(i-1, j, index)
         else:
-            return recon(i, j-1, lcs)
-    return recon(n, m, lcs)
+            recon(i, j-1, index)
 
+    recon(n, m, 0)
+    return lcss
 
-print lcs('ABCBDAB', 'BDCABA').split(',')
+# print lcs('ABCBDAB', 'BDCABA')
+# print lcs('AGCGA', 'CAGATAGAG')
