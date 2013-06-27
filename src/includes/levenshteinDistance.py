@@ -2,30 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import copy
-import json
-import codecs
+import sys
 
-THRESHOLD = 0.02
-modelDict = {}
-
-def getCEM(CEMFile):
-	global modelDict
-	with codecs.open(CEMFile, 'r', encoding='utf8') as output:
-		modelDict = json.load(output)
-	for char in modelDict:
-		for mappedChar in modelDict[char]:
-			modelDict[char][mappedChar] = float(modelDict[char][mappedChar])
-
-def prob_equals(ocrChar, origChar):
-	if modelDict[origChar][ocrChar] >= THRESHOLD:
-		return True
-	return False
-
-def printTable(table):
-	for row in table:
-		for column in row:
-			print "%3s"%column,
-		print
+sys.path.insert(0, './')
+from utilities import *
 
 def ld(ocr, orig):
 	ocr, orig = ocr.decode('utf8'), orig.decode('utf8')
@@ -39,7 +19,7 @@ def ld(ocr, orig):
 	for row in range(l2 + 1):
 		matrix[row] = range(row,row + l1 + 1)
 
-	printTable(matrix)
+	# printTable(matrix)
 
 	for row in range(l2):
 		for column in range(l1):
@@ -49,4 +29,6 @@ def ld(ocr, orig):
 	return matrix[l2][l1]
 
 # getCEM('../features/characterErrorModelProbalistic.json')
+# minProb = getMinimumProbability()
+# increaseProbability(minProb)
 # print ld('চাহুর','রাহুর')

@@ -4,7 +4,7 @@
 import json
 import codecs
 
-THRESHOLD = 0.4
+THRESHOLD = 0.2
 modelDict = {}
 minProb = 1
 
