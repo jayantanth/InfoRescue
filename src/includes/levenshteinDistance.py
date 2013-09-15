@@ -1,18 +1,34 @@
-def levenshtein(a,b): 
-    n, m = len(a), len(b)
-    if n > m:
-        # Make sure n <= m, to use O(min(n,m)) space
-        a,b = b,a
-        n,m = m,n
-        
-    current = range(n+1)
-    for i in range(1,m+1):
-        previous, current = current, [i]+[0]*n
-        for j in range(1,n+1):
-            add, delete = previous[j]+1, current[j-1]+1
-            change = previous[j-1]
-            if a[j-1] != b[i-1]:
-                change = change + 1
-            current[j] = min(add, delete, change)
-            
-    return current[n]
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import copy
+import sys
+
+sys.path.insert(0, './')
+from utilities import *
+
+def ld(ocr, orig):
+	ocr, orig = ocr.decode('utf8'), orig.decode('utf8')
+	l1 = len(ocr)
+	l2 = len(orig)
+
+	#l2 is no. of rows
+	matrix = [range(l1 + 1)] * (l2 + 1)
+
+	#writing maximum distance possible for each element
+	for row in range(l2 + 1):
+		matrix[row] = range(row,row + l1 + 1)
+
+	# printTable(matrix)
+
+	for row in range(l2):
+		for column in range(l1):
+			matrix[row+1][column+1] = min(matrix[row+1][column] + 1, matrix[row][column+1] + 1, matrix[row][column] + (0 if prob_equals(ocr[column], orig[row]) else 1))
+
+	# printTable(matrix)
+	return matrix[l2][l1]
+
+# getCEM('../features/characterErrorModelProbalistic.json')
+# minProb = getMinimumProbability()
+# increaseProbability(minProb)
+# print ld('চাহুর','রাহুর')
