@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Project &mdash; InfoRescue 0.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="InfoRescue 0.6 documentation" href="index.html" />
+    <link rel="next" title="Contact" href="contact.html" />
+    <link rel="prev" title="Welcome to InfoRescue’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contact.html" title="Contact"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to InfoRescue’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">InfoRescue 0.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="project">
+<h1>Project<a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Inforescue is a search engine which searches on erroneous data unlike general search engines which normally search on error free data.
+The error in the data can be due to anything but Inforescue focuses errors particularily introduced by <a class="reference external" href="http://en.wikipedia.org/wiki/Optical_character_recognition">OCR</a>.</p>
+<p>This project is done as a part of GSoC 2013 under Ankur India Organisation.</p>
+</div>
+<div class="section" id="objective-plan">
+<h2>Objective/Plan<a class="headerlink" href="#objective-plan" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Get the data <em>(Done)</em></p>
+<blockquote>
+<div><p>Both the ocred and original version of same data with topics and qrels files.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Prepare the data <em>(Done)</em></p>
+<blockquote>
+<div><p>Make both the versions of data consistent in terms of files present, file hierarchy, filenames.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Generate Character Error Model <em>(Done)</em></p>
+<blockquote>
+<div><p>Make a model which will  represent the probability of a character to be wrongly recognized as any other character by OCR.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Make PLCS <em>(Done)</em></p>
+<blockquote>
+<div><p>First Make a LCS (Longest Common Subsequence) which will return all the LCSs and then make it PLCS (Probabilistic LCS) using the character error model.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Make PLD <em>(Done)</em></p>
+<blockquote>
+<div><p>Make a PLD (Probabilistic Levenshtein Distance) which will return PLD based on the character error model.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Check for using Suffix Trees <em>(Done)</em></p>
+<blockquote>
+<div><p>Study whether suffix trees can be used.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Make PLCS return associated probability <em>(Done)</em></p>
+<blockquote>
+<div><p>Modify PLCS to return the probability of correctness with each LCS.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Make a complete Search System <em>(Doing)</em></p>
+<blockquote>
+<div><p>A search engine which will use above mentioned schems with general search schemes.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Stemming Approach for searching <em>(Done)</em></p>
+<blockquote>
+<div><p>To give more weight to stemming approach compared to PLCS and PLD.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Experimenting with the Search System (<em>Not Done Yet</em>)</p>
+<blockquote>
+<div><p>Get the best empirical values for all the magic numbers present above mentioned schemes.</p>
+</div></blockquote>
+</li>
+<li><p class="first">Documentation <em>(Done for now)</em></p>
+<blockquote>
+<div><p>Document everything.</p>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>Data I am using is constcuted for <a class="reference external" href="http://www.isical.ac.in/~fire/risot/risot.html">RISOT 2011</a>.</p>
+<p>I want to thank <a class="reference external" href="https://plus.google.com/113165079765927893417">Utpal Garain</a> who provide me the access to the data and <a class="reference external" href="https://plus.google.com/100047743445084989719">Prasenjit Majumdar</a> for contacting Utpal on hi behalf.</p>
+<p>I have changed the data a little bit. To make files consistent in both version of the data I have to delete <a class="reference external" href="https://github.com/knoxxs/InfoRescue/blob/master/stats/filesDeleted">some files</a>. Finnal stats about the files are <a class="reference external" href="https://github.com/knoxxs/InfoRescue/blob/master/stats/corpusStats">here</a>.</p>
+<p><a class="reference external" href="https://github.com/knoxxs/InfoRescue/blob/master/stats/ocr_orig_diff_stats">Here</a> you can find about the different in two versions of data in terms of purna virams, newlines and words in two version of same file.</p>
+</div>
+<div class="section" id="lesson-learned">
+<h2>Lesson Learned<a class="headerlink" href="#lesson-learned" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Character Error Model is one of the most important part for the correct working of InfoRescue.</li>
+<li>To consider all the possible LCSs.</li>
+<li>Modifying Lucene is very big for single person.</li>
+<li>Modify the schemes to use the hashed inverted index.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Project</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#objective-plan">Objective/Plan</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#lesson-learned">Lesson Learned</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to InfoRescue&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contact.html"
+                        title="next chapter">Contact</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/project.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="contact.html" title="Contact"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to InfoRescue’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">InfoRescue 0.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Abhishek Gupta.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>
