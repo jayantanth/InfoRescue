@@ -17,15 +17,14 @@ import os
 import re
 
 if len(sys.argv) == 2 and sys.argv[1] == '-h':
-	print("Usage: ./makeTestData.py <%> <ocrData> <originalData>")
+	print("Usage: ./deleteCorpusFiles.py <ocrData> <originalData>")
 	sys.exit()
 elif len(sys.argv) != 4:
-	print "Invalid number of arguments. Try './makeTestData.py -h'"
+	print "Invalid number of arguments. Try './deleteCorpusFiles.py -h'"
 	sys.exit()
 
-ratio = int(sys.argv[1])
-corpus_ocr = sys.argv[2]
-corpus_orig = sys.argv[3]
+corpus_ocr = sys.argv[1]
+corpus_orig = sys.argv[2]
 
 pattern = re.compile("[a-zA-Z]+")
 files_ocr = {}

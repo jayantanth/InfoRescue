@@ -1,4 +1,6 @@
-cd ../../data/RISOT-DATA/
+#Clean corpus to remove integers, punctuations, non-language chars.
+
+cd $1
 pwd
 
 for z in *
