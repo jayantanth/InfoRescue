@@ -5,10 +5,10 @@ import os
 import re
 
 if len(sys.argv) == 2 and sys.argv[1] == '-h':
-	print("Usage: ./renameFiles.py <%> <Data>")
+	print("Usage: ./renameFiles.py <Data>")
 	sys.exit()
 elif len(sys.argv) != 2:
-	print "Invalid number of arguments. Try './makeTestData.py -h'"
+	print "Invalid number of arguments. Try './renameFiles.py -h'"
 	sys.exit()
 
 corpus = sys.argv[1]
