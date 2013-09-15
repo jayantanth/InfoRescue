@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>&lt;no title&gt; &mdash; InfoRescue 0.6 documentation</title>
+    <title>Includes &mdash; InfoRescue 0.6 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,7 +23,10 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="InfoRescue 0.6 documentation" href="../index.html" /> 
+    <link rel="top" title="InfoRescue 0.6 documentation" href="../index.html" />
+    <link rel="up" title="InfoRescue API" href="api.html" />
+    <link rel="next" title="&lt;no title&gt;" href="schemes.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="features.html" /> 
   </head>
   <body>
     <div class="related">
@@ -32,7 +35,17 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../index.html">InfoRescue 0.6 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="schemes.html" title="&lt;no title&gt;"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="features.html" title="&lt;no title&gt;"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">InfoRescue 0.6 documentation</a> &raquo;</li>
+          <li><a href="api.html" accesskey="U">InfoRescue API</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -41,13 +54,172 @@
         <div class="bodywrapper">
           <div class="body">
             
-  
+  <div class="section" id="includes">
+<h1>Includes<a class="headerlink" href="#includes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-includes.utilities">
+<span id="utilities"></span><h2>utilities<a class="headerlink" href="#module-includes.utilities" title="Permalink to this headline">¶</a></h2>
+<p>This contain several common function specially relted to Character Error Model.</p>
+<dl class="docutils">
+<dt><em>Magic Numbers</em>:</dt>
+<dd>THRESHOLD : The threshold above which we consider that ocrChar charatcer can be the errorneous form of origChar.</dd>
+</dl>
+<dl class="function">
+<dt id="includes.utilities.getCEM">
+<tt class="descclassname">includes.utilities.</tt><tt class="descname">getCEM</tt><big>(</big><em>CEMFile</em><big>)</big><a class="headerlink" href="#includes.utilities.getCEM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read charatcer error model to store it in <em>modelDict</em>.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>CEMFile : Path to CEM file.</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="includes.utilities.getMinimumProbability">
+<tt class="descclassname">includes.utilities.</tt><tt class="descname">getMinimumProbability</tt><big>(</big><big>)</big><a class="headerlink" href="#includes.utilities.getMinimumProbability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the minimum probabiltiy in the Character Error Model.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="includes.utilities.getProb">
+<tt class="descclassname">includes.utilities.</tt><tt class="descname">getProb</tt><big>(</big><em>ocrChar</em>, <em>origChar</em><big>)</big><a class="headerlink" href="#includes.utilities.getProb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the probability of origChar to be interpreted as ocrChar.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocrChar : Errorneous charatcer
+origChar : Original charatcer</dd>
+<dt><em>Returns</em>:</dt>
+<dd>Probability of the pair and minProb if that pair doesnot exist in the Character Error Model</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="includes.utilities.increaseProbability">
+<tt class="descclassname">includes.utilities.</tt><tt class="descname">increaseProbability</tt><big>(</big><em>minProb</em><big>)</big><a class="headerlink" href="#includes.utilities.increaseProbability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase the each probability in the Character Error Model with minProb.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>minProb : Probability to increase</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="includes.utilities.printTable">
+<tt class="descclassname">includes.utilities.</tt><tt class="descname">printTable</tt><big>(</big><em>table</em><big>)</big><a class="headerlink" href="#includes.utilities.printTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a 2D matrix or list of list.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>table : 2D object</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="includes.utilities.prob_equals">
+<tt class="descclassname">includes.utilities.</tt><tt class="descname">prob_equals</tt><big>(</big><em>ocrChar</em>, <em>origChar</em><big>)</big><a class="headerlink" href="#includes.utilities.prob_equals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether the probability of origChar to be interpreted as ocrChar is greater than THRESHOLD or not.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocrChar : Errorneous charatcer
+origChar : Original charatcer</dd>
+<dt><em>Returns</em>:</dt>
+<dd>Boolean</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-includes.longestCommonSubsequence">
+<span id="longestcommonsubsequence"></span><h2>longestCommonSubsequence<a class="headerlink" href="#module-includes.longestCommonSubsequence" title="Permalink to this headline">¶</a></h2>
+<p>This modules implement the Probabilistic Longest Common Subsequence using the
+Character Error Model for two words: one is erroneous and other is original
+i.e. one is the word from the corpus (erroneous) and other is the query word
+(original).</p>
+<dl class="function">
+<dt id="includes.longestCommonSubsequence.lcs">
+<tt class="descclassname">includes.longestCommonSubsequence.</tt><tt class="descname">lcs</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#includes.longestCommonSubsequence.lcs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Probabilistic Longest Common Sub-sequence between two words.</p>
+<p>Following three functions must be called prior to use this functions:</p>
+<ol class="arabic simple">
+<li><tt class="xref py py-func docutils literal"><span class="pre">infoRescue.includes.utilities.getCEM()</span></tt></li>
+<li><tt class="xref py py-func docutils literal"><span class="pre">infoRescue.includes.utilities.getMinimumProbability()</span></tt></li>
+<li><tt class="xref py py-func docutils literal"><span class="pre">infoRescue.includes.utilities.increaseProbability()</span></tt></li>
+</ol>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : actual word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>All possible PLCSs between two words with the probability of correctness with each PLCS.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="includes.longestCommonSubsequence.removeDuplicate">
+<tt class="descclassname">includes.longestCommonSubsequence.</tt><tt class="descname">removeDuplicate</tt><big>(</big><em>lcss</em><big>)</big><a class="headerlink" href="#includes.longestCommonSubsequence.removeDuplicate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove duplicate PLCSs from all possible PLCSs.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>lcss : List of all possible PLCSs</dd>
+<dt><em>Returns</em>:</dt>
+<dd>List of all possible unique PLCSs.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-includes.levenshteinDistance">
+<span id="levenshteindistance"></span><h2>levenshteinDistance<a class="headerlink" href="#module-includes.levenshteinDistance" title="Permalink to this headline">¶</a></h2>
+<p>This modules implement the Probabilistic Levenshtein Distance using the
+Character Error Model for two words: one is erroneous and other is original
+i.e. one is the word from the corpus (erroneous) and other is the query word
+(original).</p>
+<dl class="function">
+<dt id="includes.levenshteinDistance.ld">
+<tt class="descclassname">includes.levenshteinDistance.</tt><tt class="descname">ld</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#includes.levenshteinDistance.ld" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate Probabilistic Levenshtein Distance between two words.</p>
+<p>Following three functions must be called prior to use this functions:</p>
+<ol class="arabic simple">
+<li><tt class="xref py py-func docutils literal"><span class="pre">infoRescue.includes.utilities.getCEM()</span></tt></li>
+<li><tt class="xref py py-func docutils literal"><span class="pre">infoRescue.includes.utilities.getMinimumProbability()</span></tt></li>
+<li><tt class="xref py py-func docutils literal"><span class="pre">infoRescue.includes.utilities.increaseProbability()</span></tt></li>
+</ol>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : actual word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>Probabilistic Levenshtein Distance between two words.</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Includes</a><ul>
+<li><a class="reference internal" href="#module-includes.utilities">utilities</a></li>
+<li><a class="reference internal" href="#module-includes.longestCommonSubsequence">longestCommonSubsequence</a></li>
+<li><a class="reference internal" href="#module-includes.levenshteinDistance">levenshteinDistance</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="features.html"
+                        title="previous chapter">&lt;no title&gt;</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="schemes.html"
+                        title="next chapter">&lt;no title&gt;</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../_sources/api/includes.txt"
@@ -76,7 +248,17 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../index.html">InfoRescue 0.6 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="schemes.html" title="&lt;no title&gt;"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="features.html" title="&lt;no title&gt;"
+             >previous</a> |</li>
+        <li><a href="../index.html">InfoRescue 0.6 documentation</a> &raquo;</li>
+          <li><a href="api.html" >InfoRescue API</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

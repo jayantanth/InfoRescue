@@ -4,11 +4,11 @@ renameFiles.py <Data>
 
 Rename files to make two versions of data consistent.
 
-Parameters:
+*Parameters*:
 	Data : Path to corpus
 
-Return:
-	-
+*Returns*:
+	--
 """
 
 import sys

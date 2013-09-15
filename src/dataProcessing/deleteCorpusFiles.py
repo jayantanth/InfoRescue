@@ -4,11 +4,11 @@
 
 This script will make the two data folder conssistent by deleting the extra files.
 
-Parameters:
+*Parameters*:
 	ocrData : Path to ocred data
 	originalData: path to ocered data
 
-Return:
+*Returns*:
 	Name of all the deleted files.
 """
 

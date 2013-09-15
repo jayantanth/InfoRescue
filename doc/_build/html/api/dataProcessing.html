@@ -36,6 +36,9 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
           <a href="features.html" title="&lt;no title&gt;"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -53,7 +56,53 @@
             
   <div class="section" id="data-processing">
 <h1>Data Processing<a class="headerlink" href="#data-processing" title="Permalink to this headline">¶</a></h1>
-<p>..autofunction:: levenshtein</p>
+<div class="section" id="renamefiles">
+<h2>renameFiles<a class="headerlink" href="#renamefiles" title="Permalink to this headline">¶</a></h2>
+<p>renameFiles.py &lt;Data&gt;</p>
+<p>Rename files to make two versions of data consistent.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>Data : Path to corpus</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</div>
+<div class="section" id="deletecorpusfiles">
+<h2>deleteCorpusFiles<a class="headerlink" href="#deletecorpusfiles" title="Permalink to this headline">¶</a></h2>
+<p>./deleteCorpusFiles.py &lt;ocrData&gt; &lt;originalData&gt;</p>
+<p>This script will make the two data folder conssistent by deleting the extra files.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocrData : Path to ocred data
+originalData: path to ocered data</dd>
+<dt><em>Returns</em>:</dt>
+<dd>Name of all the deleted files.</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h2>deleteCorpusFiles<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>ocr_orig_diff_stats.py &lt;ocrData&gt; &lt;originalData&gt;</p>
+<p>Provide a comparison between two versions of data in terms of difference in purna Virams(।),
+newlines, total words i.e. spaces for each file pair.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocerData : Path to ocred data
+originalData : Path to original Data</dd>
+<dt><em>Returns</em>:</dt>
+<dd>The difference for each file pair</dd>
+</dl>
+</div>
+<div class="section" id="cleanrisotbengali-sh">
+<h2>cleanRisotBengali.sh<a class="headerlink" href="#cleanrisotbengali-sh" title="Permalink to this headline">¶</a></h2>
+<p>. cleanRisotBengali.sh &lt;dataPath&gt;</p>
+<p>Clean the corpus to remove all the puctuation, integers, non-language words.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>dataPath : Path to the data</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</div>
 </div>
 
 
@@ -62,6 +111,17 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Data Processing</a><ul>
+<li><a class="reference internal" href="#renamefiles">renameFiles</a></li>
+<li><a class="reference internal" href="#deletecorpusfiles">deleteCorpusFiles</a></li>
+<li><a class="reference internal" href="#id1">deleteCorpusFiles</a></li>
+<li><a class="reference internal" href="#cleanrisotbengali-sh">cleanRisotBengali.sh</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="api.html"
                         title="previous chapter">InfoRescue API</a></p>
@@ -96,6 +156,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="../genindex.html" title="General Index"
              >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="features.html" title="&lt;no title&gt;"
              >next</a> |</li>

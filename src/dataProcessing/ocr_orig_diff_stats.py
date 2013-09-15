@@ -6,11 +6,11 @@ ocr_orig_diff_stats.py <ocrData> <originalData>
 Provide a comparison between two versions of data in terms of difference in purna Virams(।),
 newlines, total words i.e. spaces for each file pair.
 
-Parameters:
+*Parameters*:
 	ocerData : Path to ocred data
 	originalData : Path to original Data
 
-Returns:
+*Returns*:
 	The difference for each file pair
 """
 
