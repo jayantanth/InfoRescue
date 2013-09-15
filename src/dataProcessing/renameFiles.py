@@ -1,4 +1,15 @@
 #!/usr/bin/env python
+"""
+renameFiles.py <Data>
+
+Rename files to make two versions of data consistent.
+
+Parameters:
+	Data : Path to corpus
+
+Return:
+	-
+"""
 
 import sys
 import os

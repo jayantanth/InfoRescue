@@ -1,4 +1,16 @@
 #!/usr/bin/env python
+"""
+./deleteCorpusFiles.py <ocrData> <originalData>
+
+This script will make the two data folder conssistent by deleting the extra files.
+
+Parameters:
+	ocrData : Path to ocred data
+	originalData: path to ocered data
+
+Return:
+	Name of all the deleted files.
+"""
 
 import sys
 import os
