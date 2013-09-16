@@ -1,5 +1,5 @@
 InfoRescue API
-**********
+**************
 
 .. toctree::
     :glob:

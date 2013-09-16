@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>&lt;no title&gt; &mdash; InfoRescue 0.6 documentation</title>
+    <title>Features &mdash; InfoRescue 0.6 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -54,13 +54,207 @@
         <div class="bodywrapper">
           <div class="body">
             
-  
+  <div class="section" id="features">
+<h1>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="freqtoprobcem">
+<h2>freqToProbCEM<a class="headerlink" href="#freqtoprobcem" title="Permalink to this headline">¶</a></h2>
+<p>freqToProbCEM.py &lt;path_to_freqCEM&gt; &lt;path_to_probCEM&gt;</p>
+<p>Converts the Frequency based Character Error Model to Probabilistic Character Error Model.</p>
+</div>
+<div class="section" id="charactererrormodel">
+<h2>characterErrorModel<a class="headerlink" href="#charactererrormodel" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="features.characterErrorModel.CharacterModel">
+<em class="property">class </em><tt class="descclassname">features.characterErrorModel.</tt><tt class="descname">CharacterModel</tt><a class="headerlink" href="#features.characterErrorModel.CharacterModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>This makes a Character Error Model(CEM) from a corpus an stores it.</p>
+<dl class="docutils">
+<dt><em>Magic Data</em>:</dt>
+<dd>matras (for Bengali) = [&#8216;া&#8217;, &#8216;ি&#8217;, &#8216;ী&#8217;, &#8216;ু&#8217;, &#8216;ূ&#8217;, &#8216;ে&#8217;, &#8216;ৈ&#8217;, &#8216;ো&#8217;, &#8216;ৌ&#8217;, &#8216;ৃ&#8217;, &#8216;ঁ&#8217;, &#8216;ং&#8217;, &#8216;ঃ&#8217;, &#8216;়&#8217;]</dd>
+<dt><em>Assumption</em>:</dt>
+<dd><ul class="first last simple">
+<li>Need punctuation removed data.</li>
+<li>&#8216;n&#8217; is a chracter in the model showing nothing.</li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.addCharToModelDict">
+<tt class="descname">addCharToModelDict</tt><big>(</big><em>ocrChar</em>, <em>origChar</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.addCharToModelDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a pair of chars to CEM i.e. increase the frequency of the char pair by 1.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocrChar : erroneous character
+origChar : original character</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.addStringToModelDict">
+<tt class="descname">addStringToModelDict</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.addStringToModelDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add each pair of characters of the two strings to CEM i.e. modify the frequency of the char pairs accordingly.
+If the length of the two words are not equal then it would append <cite>n</cite> to the shorter word.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : original word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.addToModel">
+<tt class="descname">addToModel</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.addToModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the two words to the CEM by doing the appropriate mapping.
+It the main funcction which you have to call and encapsulates
+the functioning of <cite>mapCommonPeripherals()</cite> &amp; <cite>doIntelMapping()</cite>.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : original word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.countChars">
+<tt class="descname">countChars</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.countChars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count total chars (non-<em>matra</em>) in a word.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>string : word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.countMatras">
+<tt class="descname">countMatras</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.countMatras" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count total <em>matras</em> in a word.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>string : word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.doIntelMapping">
+<tt class="descname">doIntelMapping</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.doIntelMapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>It does the intelligent of mapping of two words which can&#8217;t be mapped directly
+(i.e. there are no common character pairs based on position). It does so by
+following all the possible cases and selects the best in that. Instead of
+directly applying dynamic programming to do so, it uses many conditions and
+some its own non-dynamic-programming recursion to reduce the total possible
+cases.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : original word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.dumpModelDict">
+<tt class="descname">dumpModelDict</tt><big>(</big><em>fileName</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.dumpModelDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>It stores the CEM to the output file in the json format.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.forCorpus">
+<tt class="descname">forCorpus</tt><big>(</big><em>corpus_ocr</em>, <em>corpus_orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.forCorpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>It generates a CEM for a complete corpus.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>&#8211;</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.forPair">
+<tt class="descname">forPair</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.forPair" title="Permalink to this definition">¶</a></dt>
+<dd><p>It generates a CEM for a pair of words.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : original word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.getChars">
+<tt class="descname">getChars</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.getChars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all the chars (non-<em>matra</em>) in a word.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>string : word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>All the chars as a string.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.getMatras">
+<tt class="descname">getMatras</tt><big>(</big><em>string</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.getMatras" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return all the <em>matras</em> in a word.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>string : word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>All the <em>matras</em> as a string.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.mapCommonPeripherals">
+<tt class="descname">mapCommonPeripherals</tt><big>(</big><em>ocr</em>, <em>orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.mapCommonPeripherals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Map the common periphels (i.e. both front and back end) of the two words for common pairs of characters.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>ocr : erroneous word
+orig : original word</dd>
+<dt><em>Returns</em>:</dt>
+<dd>Returns a list containing unmatched portions (None if there is no unmatched portion ) of two words <cite>[ocr_unmatched, origunmatched]</cite>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="features.characterErrorModel.CharacterModel.readStoredModel">
+<tt class="descname">readStoredModel</tt><big>(</big><em>fileName</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.readStoredModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>It reads the stored CEM from the json file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Features</a><ul>
+<li><a class="reference internal" href="#freqtoprobcem">freqToProbCEM</a></li>
+<li><a class="reference internal" href="#charactererrormodel">characterErrorModel</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
   <p class="topless"><a href="dataProcessing.html"
                         title="previous chapter">Data Processing</a></p>

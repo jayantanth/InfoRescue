@@ -7,7 +7,7 @@ Welcome to InfoRescue's documentation!
 ======================================
 
 Contents:
-========
+=========
 
 .. toctree::
    :maxdepth: 2

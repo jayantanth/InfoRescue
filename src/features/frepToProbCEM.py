@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+freqToProbCEM.py <path_to_freqCEM> <path_to_probCEM>
+
+Converts the Frequency based Character Error Model to Probabilistic Character Error Model.
+"""
 
 import json
 import sys

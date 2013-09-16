@@ -1,10 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#############
-#Assumptions:
-#punctuations is removed from the data
-
 import sys
 import os
 import re
@@ -15,9 +11,23 @@ sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)) + '/../includes/'
 import levenshteinDistance as ld
 
 class CharacterModel():
+	"""
+	This makes a Character Error Model(CEM) from a corpus an stores it.
+
+	*Magic Data*:
+		matras (for Bengali) = ['া', 'ি', 'ী', 'ু', 'ূ', 'ে', 'ৈ', 'ো', 'ৌ', 'ৃ', 'ঁ', 'ং', 'ঃ', '়']
+
+	*Assumption*:
+		- Need punctuation removed data.
+		- 'n' is a chracter in the model showing nothing.
+	"""
+
 	modelDict , matras, reportThisMap = None, None, None
 
 	def __init__(self):
+		"""
+			Initialize the CharacterModel object. Also defines the *matras*.
+		"""
 		self.modelDict = {}
 		self.matras = ['া', 'ি', 'ী', 'ু', 'ূ', 'ে', 'ৈ', 'ো', 'ৌ', 'ৃ', 'ঁ', 'ং', 'ঃ', '়']
 		self.matras = [matra.decode('utf8') for matra in self.matras]
@@ -25,6 +35,17 @@ class CharacterModel():
 
 	#'n' this is the character showing nothing
 	def addStringToModelDict(self, ocr, orig): #these two string should be of the same size
+		"""
+		Add each pair of characters of the two strings to CEM i.e. modify the frequency of the char pairs accordingly.
+		If the length of the two words are not equal then it would append `n` to the shorter word.
+
+		*Parameters*:
+			ocr : erroneous word
+			orig : original word
+		
+		*Returns*:
+			--
+		"""
 		ocrLen = len(ocr)
 		origLen = len(orig)
 		if ocrLen <= origLen:
@@ -36,6 +57,16 @@ class CharacterModel():
 			addCharToModelDict(ocrChar, origChar)
 
 	def addCharToModelDict(self, ocrChar, origChar):
+		"""
+		Adds a pair of chars to CEM i.e. increase the frequency of the char pair by 1.
+		
+		*Parameters*:
+			ocrChar : erroneous character
+			origChar : original character
+
+		*Returns*:
+			--
+		"""
 		if origChar in modelDict:
 			if ocrChar in modelDict[origChar]:
 				modelDict[origChar][ocrChar] += 1
@@ -45,6 +76,15 @@ class CharacterModel():
 			modelDict[origChar] = {ocrChar : 1}
 
 	def countMatras(self, string):
+		"""
+		Count total *matras* in a word.
+
+		*Parameters*:
+			string : word
+
+		*Returns*:
+			--
+		"""
 		cnt = 0
 		for char in string:
 			if char in matras:
@@ -52,9 +92,27 @@ class CharacterModel():
 		return cnt
 
 	def countChars(self, string):
+		"""
+		Count total chars (non-*matra*) in a word.
+
+		*Parameters*:
+			string : word
+
+		*Returns*:
+			--
+		"""
 		return len(string) - countMatras(string)
 
 	def getChars(self, string):
+		"""
+		Return all the chars (non-*matra*) in a word.
+
+		*Parameters*:
+			string : word
+
+		*Returns*:
+			All the chars as a string.
+		"""
 		chars = ''
 		for char in string:
 			if char not in matras:
@@ -62,6 +120,15 @@ class CharacterModel():
 		return chars
 
 	def getMatras(self, string):
+		"""
+		Return all the *matras* in a word.
+
+		*Parameters*:
+			string : word
+
+		*Returns*:
+			All the *matras* as a string.
+		"""
 		chars = ''
 		for char in string:
 			if char in matras:
@@ -69,6 +136,16 @@ class CharacterModel():
 		return chars
 
 	def mapCommonPeripherals(self, ocr, orig):
+		"""
+		Map the common periphels (i.e. both front and back end) of the two words for common pairs of characters.
+
+		*Parameters*:
+			ocr : erroneous word
+			orig : original word
+
+		*Returns*:
+			Returns a list containing unmatched portions (None if there is no unmatched portion ) of two words `[ocr_unmatched, origunmatched]`. 
+		"""
 		ocrLen = len(ocr)
 		origLen = len(orig)
 		origCharF = 0
@@ -93,6 +170,21 @@ class CharacterModel():
 		return ocr[ocrCharF : None if ocrCharB == -1 else ocrCharB + 1], orig[origCharF : None if origCharB == -1 else origCharB + 1]
 
 	def doIntelMapping(self, ocr, orig):
+		"""
+		It does the intelligent of mapping of two words which can't be mapped directly
+		(i.e. there are no common character pairs based on position). It does so by
+		following all the possible cases and selects the best in that. Instead of
+		directly applying dynamic programming to do so, it uses many conditions and
+		some its own non-dynamic-programming recursion to reduce the total possible
+		cases.
+
+		*Parameters*:
+			ocr : erroneous word
+			orig : original word
+
+		*Returns*:
+			--
+		"""
 		reportThisMap = False
 		ocrLen = len(ocr)
 		origLen = len(orig)
@@ -124,6 +216,18 @@ class CharacterModel():
 			reportThisMap = True
 
 	def addToModel(self, ocr, orig):
+		"""
+		Add the two words to the CEM by doing the appropriate mapping.
+		It the main funcction which you have to call and encapsulates
+		the functioning of `mapCommonPeripherals()` & `doIntelMapping()`.
+		
+		*Parameters*:
+			ocr : erroneous word
+			orig : original word
+
+		*Returns*:
+			--
+		"""
 		ocrLen = len(ocr)
 		origLen = len(orig)
 		if ocrLen == origLen:
@@ -145,14 +249,30 @@ class CharacterModel():
 				doIntelMapping(ocr, orig)
 
 	def dumpModelDict(self, fileName):
+		"""
+		It stores the CEM to the output file in the json format.
+		"""
 		with codecs.open(fileName, 'w', encoding='utf8') as output:
 			json.dump(modelDict, output, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
 
 	def readStoredModel(self, fileName):
+		"""
+		It reads the stored CEM from the json file.
+		"""
 		with codecs.open(fileName, 'r', encoding='utf8') as output:
 			modelDict = json.load(output)
 
 	def forPair(self, ocr, orig):
+		"""
+		It generates a CEM for a pair of words.
+
+		*Parameters*:
+			ocr : erroneous word
+			orig : original word
+
+		*Returns*:
+			--
+		"""
 		ocr, orig = ocr.decode('utf8'), orig.decode('utf8')
 		print ocr.encode('utf8'), orig.encode('utf8')
 		addToModel(ocr, orig)
@@ -162,6 +282,15 @@ class CharacterModel():
 		dumpModelDict()
 
 	def forCorpus(self, corpus_ocr, corpus_orig):
+		"""
+		It generates a CEM for a complete corpus.
+
+		*Parameters*:
+			--
+
+		*Returns*:
+			--
+		"""
 		pattern = re.compile("[a-zA-Z]+")
 		files_ocr = {}
 

@@ -62,7 +62,7 @@ Data I am using is constcuted for `RISOT 2011 <http://www.isical.ac.in/~fire/ris
 
 I want to thank `Utpal Garain <https://plus.google.com/113165079765927893417>`_ who provide me the access to the data and `Prasenjit Majumdar <https://plus.google.com/100047743445084989719>`_ for contacting Utpal on hi behalf.
 
-I have changed the data a little bit. To make files consistent in both version of the data I have to delete `some files <https://github.com/knoxxs/InfoRescue/blob/master/stats/filesDeleted>`_. Finnal stats about the files are `here <https://github.com/knoxxs/InfoRescue/blob/master/stats/corpusStats>`_.
+I have changed the data a little bit. To make files consistent in both version of the data I have to delete `some files <https://github.com/knoxxs/InfoRescue/blob/master/stats/filesDeleted>`_. Final stats about the files are `here <https://github.com/knoxxs/InfoRescue/blob/master/stats/corpusStats>`_.
 
 `Here <https://github.com/knoxxs/InfoRescue/blob/master/stats/ocr_orig_diff_stats>`_ you can find about the different in two versions of data in terms of purna virams, newlines and words in two version of same file.
 
