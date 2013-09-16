@@ -19,8 +19,8 @@ class CharacterModel():
 
 	def __init__(self):
 		self.modelDict = {}
-		self.matras = ['া', 'ি', 'ী', 'ু', 'ূ', 'ে', 'ৈ', 'ো', 'ৌ', 'ৃ', 'ঁ', 'ং', 'ঃ', '়']
-		self.matras = [matra.decode('utf8') for matra in self.matras]
+		matras = ['া', 'ি', 'ী', 'ু', 'ূ', 'ে', 'ৈ', 'ো', 'ৌ', 'ৃ', 'ঁ', 'ং', 'ঃ', '়']
+		self.matras = [matra.decode('utf8') for matra in matras]
 		self.reportThisMap = False
 
 	#'n' this is the character showing nothing
@@ -33,38 +33,38 @@ class CharacterModel():
 			orig += 'n' * (ocrLen - origLen)
 
 		for origChar,ocrChar in zip(orig, ocr):
-			addCharToModelDict(ocrChar, origChar)
+			self.addCharToModelDict(ocrChar, origChar)
 
 	def addCharToModelDict(self, ocrChar, origChar):
-		if origChar in modelDict:
-			if ocrChar in modelDict[origChar]:
-				modelDict[origChar][ocrChar] += 1
+		if origChar in self.modelDict:
+			if ocrChar in self.modelDict[origChar]:
+				self.modelDict[origChar][ocrChar] += 1
 			else:
-				modelDict[origChar][ocrChar] = 1
+				self.modelDict[origChar][ocrChar] = 1
 		else:
-			modelDict[origChar] = {ocrChar : 1}
+			self.modelDict[origChar] = {ocrChar : 1}
 
 	def countMatras(self, string):
 		cnt = 0
 		for char in string:
-			if char in matras:
+			if char in self.matras:
 				cnt += 1
 		return cnt
 
 	def countChars(self, string):
-		return len(string) - countMatras(string)
+		return len(string) - self.countMatras(string)
 
 	def getChars(self, string):
 		chars = ''
 		for char in string:
-			if char not in matras:
+			if char not in self.matras:
 				chars += char
 		return chars
 
 	def getMatras(self, string):
 		chars = ''
 		for char in string:
-			if char in matras:
+			if char in self.matras:
 				chars += char
 		return chars
 
@@ -75,7 +75,7 @@ class CharacterModel():
 		ocrCharF = 0
 		while ocrCharF < ocrLen and origCharF < origLen:
 			if ocr[ocrCharF] == orig[origCharF]:
-				addCharToModelDict(ocr[ocrCharF], orig[origCharF])
+				self.addCharToModelDict(ocr[ocrCharF], orig[origCharF])
 				origCharF += 1
 				ocrCharF += 1
 			else:
@@ -85,7 +85,7 @@ class CharacterModel():
 		ocrCharB = -1
 		while ocrCharB >= -ocrLen + ocrCharF and origCharB >= -origLen + origCharF:
 			if ocr[ocrCharB] == orig[origCharB]:
-				addCharToModelDict(ocr[ocrCharB], orig[origCharB])
+				self.addCharToModelDict(ocr[ocrCharB], orig[origCharB])
 				origCharB -= 1
 				ocrCharB -= 1
 			else:
@@ -93,7 +93,7 @@ class CharacterModel():
 		return ocr[ocrCharF : None if ocrCharB == -1 else ocrCharB + 1], orig[origCharF : None if origCharB == -1 else origCharB + 1]
 
 	def doIntelMapping(self, ocr, orig):
-		reportThisMap = False
+		self.reportThisMap = False
 		ocrLen = len(ocr)
 		origLen = len(orig)
 		if ocrLen < origLen:
@@ -102,8 +102,8 @@ class CharacterModel():
 			for ocrChar in range(ocrLen):
 				for origChar in range(origCharF, (origCharF + diff + 1) if (origCharF + diff) < origLen else origLen): #1 is added to cop with the behaviour of range, in condiditon check it is not there.
 					if ocr[ocrChar] == orig[origChar]:
-						addCharToModelDict(ocr[ocrChar], orig[origChar])
-						addStringToModelDict(ocr[ocrCharF:ocrChar], orig[origCharF:origChar]) #adding the string before the current map which isn't matched
+						self.addCharToModelDict(ocr[ocrChar], orig[origChar])
+						self.addStringToModelDict(ocr[ocrCharF:ocrChar], orig[origCharF:origChar]) #adding the string before the current map which isn't matched
 						diff = diff - origChar + origCharF #changing the diff accordingly, origChar (~ (origCharF, origCharF + diff)
 						ocrCharF = ocrChar + 1
 						origCharF = origChar + 1
@@ -114,59 +114,59 @@ class CharacterModel():
 				for origChar in range(origCharF, origLen): #checking in complete orig for the case when some existing character are changed not just introduced
 					if origChar - diff <= ocrChar <= origChar + diff and ocr[ocrChar] == orig[origChar]:
 						if orig[origChar] not in orig[origChar+1:] or ocrChar <= orig.index(orig[origChar]) + diff:# check for the case when exists repeated character and the first occurence is get change and is get mapped to the second occurence
-							addCharToModelDict(ocr[ocrChar], orig[origChar])
-							addStringToModelDict(ocr[ocrCharF:ocrChar], orig[origCharF:origChar])
+							self.addCharToModelDict(ocr[ocrChar], orig[origChar])
+							self.addStringToModelDict(ocr[ocrCharF:ocrChar], orig[origCharF:origChar])
 							diff = diff + origChar - ocrChar if ocrChar >= origChar else diff - origChar + ocrChar
 							ocrCharF = ocrChar + 1
 							origCharF = origChar + 1
 		#if still some of the character remained then can't do anything, print info about this case
 		if ocrCharF != ocrLen or origCharF != origLen:
-			reportThisMap = True
+			self.reportThisMap = True
 
 	def addToModel(self, ocr, orig):
 		ocrLen = len(ocr)
 		origLen = len(orig)
 		if ocrLen == origLen:
-			addStringToModelDict(ocr, orig)
+			self.addStringToModelDict(ocr, orig)
 		else:
-			ocr, orig = mapCommonPeripherals(ocr, orig)
+			ocr, orig = self.mapCommonPeripherals(ocr, orig)
 			ocrLen, origLen = len(ocr), len(orig)
 			if ocrLen == 0: #ocr complete
-				addStringToModelDict(origLen * 'n', orig)
+				self.addStringToModelDict(origLen * 'n', orig)
 			elif origLen == 0: #orig complete
-				addStringToModelDict(ocr, ocrLen * 'n')
-			elif countChars(ocr) == countChars(orig) and countChars(ocr) > 0: #2nd condition to check the case when there is no chars at all, only matras
-				addStringToModelDict(getChars(ocr), getChars(orig))
-				addToModel(getMatras(ocr), getMatras(orig))
-			elif countMatras(ocr) == countMatras(orig) and countMatras(ocr) > 0:
-				addStringToModelDict(getMatras(ocr), getMatras(orig))
-				addToModel(getChars(ocr), getChars(orig))
+				self.addStringToModelDict(ocr, ocrLen * 'n')
+			elif self.countChars(ocr) == self.countChars(orig) and self.countChars(ocr) > 0: #2nd condition to check the case when there is no chars at all, only self.matras
+				self.addStringToModelDict(self.getChars(ocr), self.getChars(orig))
+				self.addToModel(self.getMatras(ocr), self.getMatras(orig))
+			elif self.countMatras(ocr) == self.countMatras(orig) and self.countMatras(ocr) > 0:
+				self.addStringToModelDict(self.getMatras(ocr), self.getMatras(orig))
+				self.addToModel(self.getChars(ocr), self.getChars(orig))
 			else:
-				doIntelMapping(ocr, orig)
+				self.doIntelMapping(ocr, orig)
 
 	def dumpModelDict(self, fileName):
 		with codecs.open(fileName, 'w', encoding='utf8') as output:
-			json.dump(modelDict, output, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
+			json.dump(self.modelDict, output, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
 
 	def readStoredModel(self, fileName):
 		with codecs.open(fileName, 'r', encoding='utf8') as output:
-			modelDict = json.load(output)
+			self.modelDict = json.load(output)
 
 	def forPair(self, ocr, orig):
 		ocr, orig = ocr.decode('utf8'), orig.decode('utf8')
 		print ocr.encode('utf8'), orig.encode('utf8')
-		addToModel(ocr, orig)
-		if reportThisMap == True:
+		self.addToModel(ocr, orig)
+		if self.reportThisMap == True:
 			#reporting the info
 			print "File: " + direc.split('>')[0] + direc.split('>')[-1] + '/' + fl + "\n" + ocr[i] + "  " + orig[j] + "\n"
-		dumpModelDict()
+		self.dumpModelDict('characterErrorModelForPair')
 
-	def forCorpus(self, corpus_ocr, corpus_orig):
+	def forCorpus(self, corpus_ocr, corpus_orig, readModelFileName):
 		pattern = re.compile("[a-zA-Z]+")
 		files_ocr = {}
 
-		if readModel == 'y':
-			readStoredModel()
+		if readModelFileName:
+			self.readStoredModel(readModelFileName)
 
 		for (dirpath, dirname, filenames) in os.walk(corpus_ocr):
 			if pattern.match(dirpath.split("/")[-1]):
@@ -196,16 +196,17 @@ class CharacterModel():
 
 							if minLDist <= 6:
 								j += jInc
-								reportThisMap = False
-								addToModel(ocr[i], orig[j])
-								if reportThisMap == True:
+								self.reportThisMap = False
+								self.addToModel(ocr[i], orig[j])
+								if self.reportThisMap == True:
 									#reporting the info
 									print "File: " + direc.split('>')[0] + direc.split('>')[-1] + '/' + fl + "\n" + ocr[i] + "  " + orig[j] + "\n"
 								# print ocr[i].encode('utf8'), orig[j].encode('utf8')
 						i += 1
 					# sys.exit()
-		dumpModelDict()
+		self.dumpModelDict('characterErrorModel')
 
 # forPair('বজেঢ', 'বাজেট')
-# a = CharacterModel()
+a = CharacterModel()
 # a.readStoredModel('characterErrorModel.json')
+a.forPair('বজেঢ', 'বাজেট')
