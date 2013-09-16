@@ -165,15 +165,23 @@ orig : original word</dd>
 <dt id="features.characterErrorModel.CharacterModel.dumpModelDict">
 <tt class="descname">dumpModelDict</tt><big>(</big><em>fileName</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.dumpModelDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>It stores the CEM to the output file in the json format.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>fileName : name of the output file</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="features.characterErrorModel.CharacterModel.forCorpus">
-<tt class="descname">forCorpus</tt><big>(</big><em>corpus_ocr</em>, <em>corpus_orig</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.forCorpus" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">forCorpus</tt><big>(</big><em>corpus_ocr</em>, <em>corpus_orig</em>, <em>readModelFileName</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.forCorpus" title="Permalink to this definition">¶</a></dt>
 <dd><p>It generates a CEM for a complete corpus.</p>
 <dl class="docutils">
 <dt><em>Parameters</em>:</dt>
-<dd>&#8211;</dd>
+<dd>corpus_ocr : path to erroneous corpus
+corpus_orig : path to original (error free corpus)
+readModelFileName : name of the CharacterErrorModel .json file if you want to append to that model.</dd>
 <dt><em>Returns</em>:</dt>
 <dd>&#8211;</dd>
 </dl>
@@ -233,6 +241,12 @@ orig : original word</dd>
 <dt id="features.characterErrorModel.CharacterModel.readStoredModel">
 <tt class="descname">readStoredModel</tt><big>(</big><em>fileName</em><big>)</big><a class="headerlink" href="#features.characterErrorModel.CharacterModel.readStoredModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>It reads the stored CEM from the json file.</p>
+<dl class="docutils">
+<dt><em>Parameters</em>:</dt>
+<dd>fileName : name of the input file</dd>
+<dt><em>Returns</em>:</dt>
+<dd>&#8211;</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

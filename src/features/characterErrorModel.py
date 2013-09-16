@@ -251,6 +251,12 @@ class CharacterModel():
 	def dumpModelDict(self, fileName):
 		"""
 		It stores the CEM to the output file in the json format.
+
+		*Parameters*:
+			fileName : name of the output file
+
+		*Returns*:
+			--
 		"""
 		with codecs.open(fileName, 'w', encoding='utf8') as output:
 			json.dump(self.modelDict, output, sort_keys=True, indent=4, separators=(',', ': '), ensure_ascii=False)
@@ -258,6 +264,12 @@ class CharacterModel():
 	def readStoredModel(self, fileName):
 		"""
 		It reads the stored CEM from the json file.
+		
+		*Parameters*:
+			fileName : name of the input file
+		
+		*Returns*:
+			--
 		"""
 		with codecs.open(fileName, 'r', encoding='utf8') as output:
 			self.modelDict = json.load(output)
@@ -286,7 +298,9 @@ class CharacterModel():
 		It generates a CEM for a complete corpus.
 
 		*Parameters*:
-			--
+			corpus_ocr : path to erroneous corpus
+			corpus_orig : path to original (error free corpus)
+			readModelFileName : name of the CharacterErrorModel .json file if you want to append to that model.
 
 		*Returns*:
 			--
