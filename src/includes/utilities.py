@@ -10,7 +10,7 @@ This contain several common function specially relted to Character Error Model.
 import json
 import codecs
 
-THRESHOLD = 0.2
+THRESHOLD = 0.4
 modelDict = {}
 minProb = 1
 

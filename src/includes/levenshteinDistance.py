@@ -30,7 +30,7 @@ def ld(ocr, orig):
 		Probabilistic Levenshtein Distance between two words.
 	"""
 
-	ocr, orig = ocr.decode('utf8'), orig.decode('utf8')
+	# ocr, orig = ocr.decode('utf8'), orig.decode('utf8')
 	l1 = len(ocr)
 	l2 = len(orig)
 

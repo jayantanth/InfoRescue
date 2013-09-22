@@ -293,14 +293,14 @@ class CharacterModel():
 			print "File: " + direc.split('>')[0] + direc.split('>')[-1] + '/' + fl + "\n" + ocr[i] + "  " + orig[j] + "\n"
 		self.dumpModelDict('characterErrorModelForPair')
 
-	def forCorpus(self, corpus_ocr, corpus_orig, readModelFileName):
+	def forCorpus(self, corpus_ocr, corpus_orig, readModelFileName=None):
 		"""
 		It generates a CEM for a complete corpus.
 
 		*Parameters*:
 			corpus_ocr : path to erroneous corpus
 			corpus_orig : path to original (error free corpus)
-			readModelFileName : name of the CharacterErrorModel .json file if you want to append to that model.
+			readModelFileName : name of the CharacterErrorModel .json file if you want to append to that model, None by default.
 
 		*Returns*:
 			--
@@ -332,7 +332,7 @@ class CharacterModel():
 						if(len(ocr[i]) > 3):
 							minLDist = 1000
 							for k in range(10 if origLen - j >= 10 else origLen - j):
-								lDist = ld.levenshtein(ocr[i], orig[j + k])
+								lDist = ld.ld(ocr[i], orig[j + k])
 								if lDist < minLDist:
 									minLDist = lDist
 									jInc = k
@@ -350,6 +350,6 @@ class CharacterModel():
 		self.dumpModelDict('characterErrorModel')
 
 # forPair('বজেঢ', 'বাজেট')
-a = CharacterModel()
+# a = CharacterModel()
 # a.readStoredModel('characterErrorModel.json')
-a.forPair('বজেঢ', 'বাজেট')
+# a.forPair('বজেঢ', 'বাজেট')

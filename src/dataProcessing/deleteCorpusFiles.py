@@ -19,7 +19,7 @@ import re
 if len(sys.argv) == 2 and sys.argv[1] == '-h':
 	print("Usage: ./deleteCorpusFiles.py <ocrData> <originalData>")
 	sys.exit()
-elif len(sys.argv) != 4:
+elif len(sys.argv) != 3:
 	print "Invalid number of arguments. Try './deleteCorpusFiles.py -h'"
 	sys.exit()
 
