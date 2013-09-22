@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>System Setup &amp; Simple Tutorial &mdash; InfoRescue 0.6 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.6',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="InfoRescue 0.6 documentation" href="index.html" />
+    <link rel="next" title="InfoRescue API" href="api/api.html" />
+    <link rel="prev" title="Project" href="project.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api/api.html" title="InfoRescue API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="project.html" title="Project"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">InfoRescue 0.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="system-setup-simple-tutorial">
+<h1>System Setup &amp; Simple Tutorial<a class="headerlink" href="#system-setup-simple-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setting-up-python-environment">
+<h2>Setting up python environment<a class="headerlink" href="#setting-up-python-environment" title="Permalink to this headline">¶</a></h2>
+<p>This project is completely written in python. So to use it you must have python
+pre-installed on your system. If you don&#8217;t have it then please follow <a class="reference external" href="http://askubuntu.com/questions/101591/how-do-i-install-python-2-7-2-on-ubuntu">this</a></p>
+</div>
+<div class="section" id="getting-the-source-code">
+<h2>Getting the source code<a class="headerlink" href="#getting-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>You can clone the complete <a class="reference external" href="https://github.com/knoxxs/InfoRescue">repository</a>
+using this:</p>
+<div class="highlight-python"><pre>git clone https://github.com/knoxxs/InfoRescue.git</pre>
+</div>
+<p>Also if you want to clone only the latest code then use this:</p>
+<div class="highlight-python"><pre>git clone https://github.com/knoxxs/InfoRescue.git -b dev</pre>
+</div>
+</div>
+<div class="section" id="getting-the-data">
+<h2>Getting the data<a class="headerlink" href="#getting-the-data" title="Permalink to this headline">¶</a></h2>
+<p>I have used the
+<a class="reference external" href="http://www.isical.ac.in/~fire/risot/risot.html#0.1_data">RISOT 2011 data</a>
+which is not publically available. You can request them and they will surely
+share it with you.</p>
+</div>
+<div class="section" id="preparing-the-data">
+<h2>Preparing the data<a class="headerlink" href="#preparing-the-data" title="Permalink to this headline">¶</a></h2>
+<p>You have to tune the data to make it more consistent so that both the versions
+of data has same number of files with same file hierarchy and same file names.
+Then you have to remove punctuations and any other exotic character. For this
+you have to do the following things:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Here I will be explaining everything w.r.t. Risot 2011 Bengali data.
+All the following script are written w.r.t. RISOT 2011 corpus.</p>
+</div>
+<div class="section" id="rename-files">
+<h3>Rename Files<a class="headerlink" href="#rename-files" title="Permalink to this headline">¶</a></h3>
+<p>Rename all the files accordingly so that both the versions of data have same
+filenames. For RISOT 2011 both versions have different filenames. So we have to
+make them consistent. To do so I decided to change all the files names of
+origianl version of corpus to match to ocred version. Right now
+all the files are named as filename.pc.utf8, this code will change that to
+filename.txt:</p>
+<div class="highlight-python"><pre>To do so you can use ``src/dataProcessing/renameFiles.py``.
+You have to pass the path to the corpus to it (i.e. patht o the original
+version of data).</pre>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="api/dataProcessing.html#renamefiles">dataProcessing.renameFiles</a></p>
+</div>
+</div>
+<div class="section" id="delete-files">
+<h3>Delete Files<a class="headerlink" href="#delete-files" title="Permalink to this headline">¶</a></h3>
+<p>It may be possible that both versions of data don&#8217;t have same files. So you have
+to remove the extra files to make them consistent:</p>
+<div class="highlight-python"><pre>To do so you can use ``src\dataProcessing\deleteCorpusFiles.py``. You have
+to pass two paths to it: path to ocred version of data and to origianl
+version of data.</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You have to append a  <strong>/</strong> at the end of each path, else you will
+get an error.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="api/dataProcessing.html#deletecorpusfiles">dataProcessing.deleteCorpusFiles</a></p>
+</div>
+</div>
+<div class="section" id="clean-data">
+<h3>Clean Data<a class="headerlink" href="#clean-data" title="Permalink to this headline">¶</a></h3>
+<p>You have to clean the data to remove all the punctuations, numerals, and other
+exotic characters:</p>
+<div class="highlight-python"><pre>To do so you can use ``src\dataProcessing\cleanRisotBengali.py``.
+You have to pass the path of the corpus to it.</pre>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="api/dataProcessing.html#cleanrisotbengali-sh">dataProcessing.cleanRisotBengali</a></p>
+</div>
+</div>
+<div class="section" id="get-stats">
+<h3>Get Stats<a class="headerlink" href="#get-stats" title="Permalink to this headline">¶</a></h3>
+<p>This is optional. This will generate a file which will list the difference in
+two versions of data for each file:</p>
+<div class="highlight-python"><pre>To do so you can use ``src\dataProcessing\ocr_orig_diff_stats.py``.
+You have to pass the path of the both versions of data to it.</pre>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="api/dataProcessing.html#ocr-orig-diff-stats">dataProcessing.ocr_orig_diff_stats</a></p>
+</div>
+</div>
+</div>
+<div class="section" id="generating-character-error-model">
+<h2>Generating Character Error Model<a class="headerlink" href="#generating-character-error-model" title="Permalink to this headline">¶</a></h2>
+<p>Now we will generate the error model from the corpus. To generate the error
+model use the following code:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">characterErrorModel</span> <span class="kn">import</span> <span class="n">CharacterModel</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">CharacterModel</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">forCorpus</span><span class="p">(</span><span class="s">&#39;cleaned_ocredDataPath&#39;</span><span class="p">,</span> <span class="s">&#39;cleaned_ocredDataPath&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This will store a .json file which will contain the error model. This file will
+also print all those matches which it can&#8217;t be able to match successfully.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You have to place this file in the same directory of the
+characterErrorModel.py i.e. <tt class="docutils literal"><span class="pre">InfoRescue/src/features/</span></tt>.</p>
+</div>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="api/features.html#charactererrormodel">features.characterErrorModel</a></p>
+</div>
+</div>
+<div class="section" id="plcs-pld">
+<h2>PLCS &amp; PLD<a class="headerlink" href="#plcs-pld" title="Permalink to this headline">¶</a></h2>
+<p>You can find these schemes at <cite>src/includes/</cite>.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="api/includes.html#levenshteindistance">includes.levenshteinDistance</a>,
+<a class="reference external" href="api/includes.html#longestcommonsubsequence">includes.longestCommonSubsequence</a></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">System Setup &amp; Simple Tutorial</a><ul>
+<li><a class="reference internal" href="#setting-up-python-environment">Setting up python environment</a></li>
+<li><a class="reference internal" href="#getting-the-source-code">Getting the source code</a></li>
+<li><a class="reference internal" href="#getting-the-data">Getting the data</a></li>
+<li><a class="reference internal" href="#preparing-the-data">Preparing the data</a><ul>
+<li><a class="reference internal" href="#rename-files">Rename Files</a></li>
+<li><a class="reference internal" href="#delete-files">Delete Files</a></li>
+<li><a class="reference internal" href="#clean-data">Clean Data</a></li>
+<li><a class="reference internal" href="#get-stats">Get Stats</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#generating-character-error-model">Generating Character Error Model</a></li>
+<li><a class="reference internal" href="#plcs-pld">PLCS &amp; PLD</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="project.html"
+                        title="previous chapter">Project</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="api/api.html"
+                        title="next chapter">InfoRescue API</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/setup.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="api/api.html" title="InfoRescue API"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="project.html" title="Project"
+             >previous</a> |</li>
+        <li><a href="index.html">InfoRescue 0.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Abhishek Gupta.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2b1.
+    </div>
+  </body>
+</html>

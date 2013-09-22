@@ -13,6 +13,7 @@ Contents:
    :maxdepth: 2
 
    project
+   setup
    api/api
    contact
 
